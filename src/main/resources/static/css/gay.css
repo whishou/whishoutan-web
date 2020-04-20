@@ -1,0 +1,31 @@
+
+body{
+    background: url(../images/email-pattern.png);
+}
+
+@media (min-width: 1200px) {
+    .container{
+        max-width: 970px;
+    }
+}
+
+/* 调整登录页面大小 */
+
+@media (min-width: 1200px) {
+    #login{
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 992px) {
+    #login{
+        max-width: 540px;
+    }
+}
+@media (min-width: 786px) {
+    #login{
+        max-width: 540px;
+    }
+}
+
+

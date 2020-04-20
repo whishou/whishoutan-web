@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="_fragments::head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>名字不代表我是兽の小屋</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/gay.css">
+    <link rel="stylesheet" href="../static/css/footer.css">
+</head>
+
+<body>
+
+    <!-- 导航 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand">
+            <h2>名字不代表我是兽の小屋</h2>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="container">
+                <ul class="navbar-nav ml-5">
+                    <li class="nav-item pl-3">
+                        <a class="nav-link" href="index.html" th:href="@{/}">首页 </a>
+                    </li>
+                    <li class="nav-item pl-3 active ">
+                        <a class="nav-link" href="#">文章<span class="sr-only">文章</span></a>
+                    </li>
+                    <li class="nav-item pl-3">
+                        <a class="nav-link" href="#">视频</a>
+                    </li>
+                    <li class="nav-item pl-3">
+                        <a class="nav-link" href="#">关于</a>
+                    </li>
+                </ul>
+                <div></div>
+                <div></div>
+                <!--判断是否登录-->
+                <div th:switch="${session.user!=null}">
+                    <div th:case="true" class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Whishou Tan
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#" th:href="@{/loginIndex/logout}">注销</a>
+                        </div>
+                    </div>
+                    <a th:case="false" class="btn btn-outline-secondary ml-5" href="#" role="button" th:href="@{/loginIndex}" >登陆</a>
+                </div>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">搜索</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- 主体 -->
+    <div class="py-4">
+        <div class="container">
+            <div class="row">
+                <!-- 左边 -->
+                <div class="col-lg-8 mr-5">
+                    <!-- 美好生活 -->
+                    <div class="row border bg-light">
+                        <div class="col py-2">
+                            <h4 class="text-right pr-4">美好生活，记录一点一滴</h4>
+                        </div>
+                    </div>
+                    <!-- 文章 -->
+                    <div th:each="list,stat: ${queryBlogList}">
+                        <div class="row border mb-2 shadow bg-light rounded">
+                            <div class="col">
+<!--                                <h4 class="p-4" th:text="${list.title}"><a href="" th:text="${list.title}">请君听</a></h4>-->
+                                <a href="#" class="p-4 h4 d-block text-decoration-none text-dark"
+                                   th:text="${list.title}" th:href="@{'/article?id='+${list.id}}">请君听</a>
+                                <p class="px-4 font-weight-light" th:text="${list.text}"
+                                   style="display: -webkit-box;overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp:5;-webkit-box-orient: vertical">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    Id unde ipsa excepturi quos dolorem tempora sapiente cumque earum soluta nihil optio
+                                    aliquam distinctio reprehenderit ipsum accusantium, eligendi possimus architecto rerum?
+                                    Officiis, mollitia optio? Delectus cumque, aut enim debitis facilis voluptatum,
+                                    architecto corrupti deserunt quis nemo suscipit. Saepe hic debitis mollitia.
+                                </p>
+                                <div class="row mb-2">
+                                    <div class="col-lg-4 text-right">
+                                        <span th:text="${list.category}">学习笔记</span>
+                                    </div>
+
+                                    <div class="col-lg-7 text-right">
+                                        <time datetime="2020-04-10" th:datetime="${list.crTime}" th:text="${list.crTime}">2020/4/10</time>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 换页 -->
+                    <form action="post" th:action="@{/blog}">
+                    <div class="row border mt-n2 shadow bg-light rounded ">
+                        <div class="col-2 py-2">
+                            <button type="submit" class="btn btn-outline-secondary" name="page" th:value="${prePage}">上一页</button>
+                        </div>
+<!--                        <div class="col-6 py-2 px-0">-->
+<!--                            <ul class="pagination ">-->
+<!--                                <div th:each="i:${#numbers.sequence(1,totalPages)}" >-->
+<!--                                    <li class="page-item">-->
+<!--                                        <a class="page-link list-group-item-action list-group-item-light" href="#"-->
+<!--                                           th:href="@{'/blog?page='+${i}}"-->
+<!--                                           th:text="${i}" th:classappend="${i}==${currentPage}?'active':'disabled'">i</a>-->
+<!--                                    </li>-->
+<!--                                </div>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+                        <div class="btn-toolbar py-2" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-group mr-2" role="group" aria-label="First group">
+                                <button type="submit" class="btn btn-outline-secondary" name="page" th:each="i:${#numbers.sequence(1,totalPages)}"
+                                        th:value="${i}" th:text="${i}" th:classappend="${i}==${currentPage}?'active':''">1</button>
+                            </div>
+
+                        </div>
+                        <div class="col-2 py-2 text-right">
+                            <button type="submit" class="btn btn-outline-secondary" name="page" th:value="${nextPage}">下一页</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                <!-- 右边 -->
+                <div class="col-lg-3 ml-4">
+                    <!-- 分类 -->
+                    <div class="row border bg-light">
+                        <div class="col-6 py-2 text-center">
+                            <h4>分类</h4>
+                        </div>
+                        <div class="col-2 py-2"></div>
+                        <div class="col-4 py-2 ">
+                            <a class="align-middle text-dark" href="">more</a>
+                        </div>
+                    </div>
+                    <!-- 类别 -->
+                    <div class="row">
+                        <div class="col p-0">
+                            <ul class="list-group shadow bg-light rounded">
+
+                                <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                                    href="">
+                                    学习笔记
+                                    <span class="badge badge-secondary badge-pill">1</span>
+                                </a>
+                                <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                                    href="">
+                                    说说
+                                    <span class="badge badge-secondary badge-pill">0</span>
+                                </a>
+                                <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                                    href="">
+                                    代码编程
+                                    <span class="badge badge-secondary badge-pill">0</span>
+                                </a>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">&copy;2020</span>
+            <span class="text-muted">Whishou Tan</span>
+        </div>
+    </footer>
+
+
+
+    <script src="../static/js/jquery-3.4.1.min.js" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+
+</html>

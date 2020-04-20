@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments::head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>名字不代表我是兽の后面</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/css/gay.css">
+    <link rel="stylesheet" href="../../static/css/footer.css">
+</head>
+
+<body>
+
+    <!-- 导航 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand">
+            <h2>名字不代表我是兽の后面</h2>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="container">
+                <ul class="navbar-nav ml-5">
+                    <li class="nav-item pl-3">
+                        <a class="nav-link" href="index.html" th:href="@{/}">首页 </a>
+                    </li>
+                    <li class="nav-item pl-3 active ">
+                        <a class="nav-link" href="#" th:href="@{/blog?page=1}">文章<span class="sr-only">文章</span></a>
+                    </li>
+                    <li class="nav-item pl-3">
+                        <a class="nav-link" href="#">视频</a>
+                    </li>
+                    <li class="nav-item pl-3">
+                        <a class="nav-link" href="#">关于</a>
+                    </li>
+                </ul>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Whishou Tan
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" th:href="@{/loginIndex/logout}">注销</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- 主体 -->
+    <div class="py-4">
+        <div class="container ">
+            <!-- 搜索框查询文章 -->
+            <div class="row border shadow bg-light rounded p-4">
+                <div class="col-lg-4 ">
+                    <input type="text" class="form-control" id="inlineFormInputName" placeholder="标题">
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-outline-secondary">给我搜</button>
+                </div>
+            </div>
+            <!-- 文章列表 -->
+            <div class="row border shadow bg-light rounded p-4">
+                <div class="col">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="w-25">标题</th>
+                                <th scope="col">发布状态</th>
+                                <th scope="col">分类</th>
+                                <th scope="col">修改时间</th>
+                                <th scope="col">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="list,stat: ${queryBlogList}" >
+                                <th th:text="${list.title}" scope="row">请君听</th>
+                                <td th:text="${list.if_publish}">发布</td>
+                                <td th:text="${list.category}">学习笔记</td>
+                                <td th:text="${list.upTime}">2020-04-11</td>
+                                <td>
+                                    <a class="btn btn-outline-secondary" href="#" role="button" th:href="@{'/loginIndex/newBlogs?id='+${list.id}}">查看</a>
+                                    <a class="btn btn-outline-secondary" href="#" role="button" th:href="@{'/loginIndex/newBlogs?id='+${list.id}}">编辑</a>
+                                    <a class="btn btn-outline-danger" href="#" role="button" th:href="@{'/loginIndex/deleteBlogs?id='+${list.id}}" >删除</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <!-- 翻页 -->
+                        <tfoot>
+                            <tr>
+                                <th colspan="4">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination ">
+                                            <li class="page-item">
+                                                <a class="page-link list-group-item-action list-group-item-light" href="#"
+                                                    th:href="@{'/loginIndex/myblogPages?page='+${prePage}}">Previous</a></li>
+                                                <li class="page-item" th:each="i:${#numbers.sequence(1,totalPages)}" >
+                                                    <a class="page-link list-group-item-action list-group-item-light" href="#"
+                                                       th:href="@{'/loginIndex/myblogPages?page='+${i}}"
+                                                       th:text="${i}" th:classappend="${i}==${currentPage}?'active':''">i</a>
+                                                </li>
+                                            <li class="page-item ">
+                                                <a class="page-link list-group-item-action list-group-item-light" href="#"
+                                                    th:href="@{'/loginIndex/myblogPages?page='+${nextPage}}">Next</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </th>
+                                <th class="text-right">
+                                    <a class="btn btn-secondary " href="#" role="button" th:href="@{/loginIndex/newBlogs}">新增</a>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">&copy;2020</span>
+            <span class="text-muted">Whishou Tan</span>
+        </div>
+    </footer>
+
+
+
+    <script src="../../static/js/jquery-3.4.1.min.js" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+
+</html>
