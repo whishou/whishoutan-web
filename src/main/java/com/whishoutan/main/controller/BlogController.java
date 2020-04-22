@@ -5,13 +5,12 @@ import com.whishoutan.main.entity.BlogCategory;
 import com.whishoutan.main.entity.Page;
 import com.whishoutan.main.service.BlogCategoryService;
 import com.whishoutan.main.service.BlogService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.whishoutan.main.util.TimeConvert;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -37,16 +36,15 @@ public class BlogController {
     {
         Blog queryBlog =blogService.getBlog(blog);
         //System.out.println(queryBlog.toString());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
-        String str = simpleDateFormat.format(queryBlog.getUpdateTime());
+
+        TimeConvert.timeConvert(queryBlog,1);
 
         BlogCategory blogCategory = blogCategoryService.getBlogCategory(queryBlog.getCategoryID());
 
         //System.out.println(blogCategory.toString());
 
         model.addAttribute("queryBlog",queryBlog);
-        model.addAttribute("str",str);
+        model.addAttribute("str",queryBlog.getUpTime());
         model.addAttribute("blogCategory",blogCategory);
 
         return "admin/myblogs";
@@ -58,12 +56,7 @@ public class BlogController {
         List<Blog> blogList= blogService.getBlogList();
         //System.out.println(blogList);
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
-        for (int i = 0; i < blogList.size(); i++) {
-            blogList.get(i).setCrTime(simpleDateFormat.format(blogList.get(i).getCreateTime()));
-            blogList.get(i).setUpTime(simpleDateFormat.format(blogList.get(i).getUpdateTime()));
-        }
+        TimeConvert.timeConvert(blogList,1);
 
         model.addAttribute("queryBlogList",blogList);
 
@@ -79,12 +72,7 @@ public class BlogController {
         p.setTotalCounts(blogService.getTotalCounts());
         p.setTotalPages(p.getTotalPages());
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
-        for (int i = 0; i < blogPages.size(); i++) {
-            blogPages.get(i).setCrTime(simpleDateFormat.format(blogPages.get(i).getCreateTime()));
-            blogPages.get(i).setUpTime(simpleDateFormat.format(blogPages.get(i).getUpdateTime()));
-        }
+        TimeConvert.timeConvert(blogPages,1);
 
 
         model.addAttribute("queryBlogList",blogPages);
@@ -93,8 +81,6 @@ public class BlogController {
         model.addAttribute("currentPage",p.getCurrentPage());
         model.addAttribute("nextPage",p.getNextPage());
         model.addAttribute("prePage",p.getPrePage());
-
-
 
         return "admin/myblogPages";
     }
@@ -115,14 +101,9 @@ public class BlogController {
             model.addAttribute("title",queryBlog.getTitle());
             model.addAttribute("categoryID",queryBlog.getCategoryID());
             model.addAttribute("text",queryBlog.getText());
-
-
         }
         return "admin/newblogs";
-
     }
-
-
 
     @RequestMapping("/submitBlogs")
     public String submitBlogs(Blog blog)
@@ -150,5 +131,35 @@ public class BlogController {
         blogService.deleteBlog(id);
 
         return "admin/success";
+    }
+
+
+    /*** 以下是关于category的操作  ***/
+
+    @RequestMapping("/categories")
+    public String categories(Model model)
+    {
+        List<BlogCategory> categoryList = blogCategoryService.getAllCategory();
+
+        for (int i = 0; i < categoryList.size(); i++) {
+            categoryList.get(i).setCategoryCounts(blogService.getCategoryCounts(categoryList.get(i).getId()));
+        }
+        model.addAttribute("categoryList",categoryList);
+        return "admin/myblogCategories";
+    }
+
+    @RequestMapping("/updateCategories")
+    public String updateCategories(Model model,String category,Integer id)
+    {
+        if (category != null)
+        {
+            blogCategoryService.newCategory(category);
+        }
+        else if (id != null)
+        {
+            blogCategoryService.deleteCategory(id);
+        }
+
+        return "redirect:/loginIndex/categories";
     }
 }

@@ -29,7 +29,7 @@
                         <a class="nav-link" href="index.html" th:href="@{/}">首页 </a>
                     </li>
                     <li class="nav-item pl-3 active ">
-                        <a class="nav-link" href="#">文章<span class="sr-only">文章</span></a>
+                        <a class="nav-link" href="#" th:href="@{/blog?page=1}">文章<span class="sr-only">文章</span></a>
                     </li>
                     <li class="nav-item pl-3">
                         <a class="nav-link" href="#">视频</a>
@@ -72,7 +72,7 @@
                     <!-- 美好生活 -->
                     <div class="row border bg-light">
                         <div class="col py-2">
-                            <h4 class="text-right pr-4">美好生活，记录一点一滴</h4>
+                            <h4 class="text-right pr-4" th:text="${currentCategory}">美好生活，记录一点一滴</h4>
                         </div>
                     </div>
                     <!-- 文章 -->
@@ -92,13 +92,8 @@
                                         architecto corrupti deserunt quis nemo suscipit. Saepe hic debitis mollitia.
                                     </p>
                                 </div>
-
                                 <div class="row mb-2">
-                                    <div class="col-lg-4 text-right">
-                                        <span th:text="${list.category}">学习笔记</span>
-                                    </div>
-
-                                    <div class="col-lg-7 text-right">
+                                    <div class="col-lg-11 text-right">
                                         <time datetime="2020-04-10" th:datetime="${list.crTime}" th:text="${list.crTime}">2020/4/10</time>
                                     </div>
                                 </div>
@@ -106,39 +101,10 @@
                         </div>
                     </div>
 
-                    <!-- 换页 -->
-                    <form method="get" th:action="@{/blog}">
-                    <div class="row border mt-n2 mb-2 shadow bg-light rounded ">
-                        <div class="col-2 py-2">
-                            <button type="submit" class="btn btn-outline-secondary" name="page" th:value="${prePage}">上一页</button>
-                        </div>
-<!--                        <div class="col-6 py-2 px-0">-->
-<!--                            <ul class="pagination ">-->
-<!--                                <div th:each="i:${#numbers.sequence(1,totalPages)}" >-->
-<!--                                    <li class="page-item">-->
-<!--                                        <a class="page-link list-group-item-action list-group-item-light" href="#"-->
-<!--                                           th:href="@{'/blog?page='+${i}}"-->
-<!--                                           th:text="${i}" th:classappend="${i}==${currentPage}?'active':'disabled'">i</a>-->
-<!--                                    </li>-->
-<!--                                </div>-->
-<!--                            </ul>-->
-<!--                        </div>-->
-                        <div class="btn-toolbar py-2" role="toolbar" aria-label="Toolbar with button groups">
-                            <div class="btn-group mr-2" role="group" aria-label="First group">
-                                <button type="submit" class="btn btn-outline-secondary" name="page" th:each="i:${#numbers.sequence(1,totalPages)}"
-                                        th:value="${i}" th:text="${i}" th:classappend="${i}==${currentPage}?'active':''">1</button>
-                            </div>
-
-                        </div>
-                        <div class="col-2 py-2 text-right">
-                            <button type="submit" class="btn btn-outline-secondary" name="page" th:value="${nextPage}">下一页</button>
-                        </div>
-                    </div>
-                    </form>
                 </div>
                 <div class="col-auto"></div>
                 <!-- 右边 -->
-                <div class="col-lg-3 ">
+                <div class="col-lg-3">
                     <!-- 分类 -->
                     <div class="row border bg-light">
                         <div class="col-6 py-2 text-center">

@@ -6,6 +6,7 @@ import java.util.List;
 public class BlogCategory {
     private Integer id;
     private String category;
+    private Integer categoryCounts;
 
     private List<Blog> blogs;
 
@@ -28,6 +29,14 @@ public class BlogCategory {
         this.category = category;
     }
 
+    public Integer getCategoryCounts() {
+        return categoryCounts;
+    }
+
+    public void setCategoryCounts(Integer categoryCounts) {
+        this.categoryCounts = categoryCounts;
+    }
+
     public List<Blog> getBlogs() {
         return blogs;
     }
@@ -41,6 +50,7 @@ public class BlogCategory {
         return "BlogCategory{" +
                 "id=" + id +
                 ", category='" + category + '\'' +
+                ", categoryCounts=" + categoryCounts +
                 '}';
     }
 }

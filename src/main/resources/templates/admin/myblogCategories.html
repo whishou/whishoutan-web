@@ -55,64 +55,39 @@
     <!-- 主体 -->
     <div class="py-4">
         <div class="container ">
-            <!-- 搜索框查询文章 -->
+            <!-- 添加分类 -->
+            <form method="post" action="#" th:action="@{/loginIndex/updateCategories}">
             <div class="row border shadow bg-light rounded p-4">
                 <div class="col-lg-4 ">
-                    <input type="text" class="form-control" id="inlineFormInputName" placeholder="标题">
+                    <input type="text" class="form-control" id="inputCategory" name="category" placeholder="新增分类" required>
                 </div>
                 <div class="col">
-                    <button type="submit" class="btn btn-outline-secondary">给我搜</button>
+                    <button type="submit" class="btn btn-outline-secondary">确定</button>
                 </div>
             </div>
-            <!-- 文章列表 -->
+            </form>
+
+            <!-- 分类列表 -->
             <div class="row border shadow bg-light rounded p-4">
                 <div class="col">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">标题</th>
-                                <th scope="col">发布状态</th>
                                 <th scope="col">分类</th>
-                                <th scope="col">修改时间</th>
+                                <th scope="col">文章数量</th>
                                 <th scope="col">操作</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th th:text="${queryBlog.title}" scope="row">请君听</th>
-                                <td th:text="${queryBlog.if_publish}">发布</td>
-                                <td th:text="${blogCategory.category}">学习笔记</td>
-                                <td th:text="${str}" >2020-04-11</td>
-                                <td>
-                                    <a class="btn btn-outline-secondary" href="#" role="button">编辑</a>
-                                    <a class="btn btn-outline-danger" href="#" role="button">删除</a>
+                            <tr th:each="list,stat: ${categoryList}" >
+                                <th th:text="${list.category}" scope="row">学习笔记</th>
+                                <td th:text="${list.categoryCounts}">3</td>
+                                <!--数量为0时可以删除-->
+                                <td th:switch="${list.categoryCounts}==0">
+                                    <a th:case="true" class="btn btn-outline-danger" href="#" role="button" th:href="@{'/loginIndex/updateCategories?id='+${list.id}}" >删除</a>
                                 </td>
                             </tr>
                         </tbody>
-                        <!-- 翻页 -->
-                        <tfoot>
-                            <tr>
-                                <th colspan="4">
-                                    <nav aria-label="Page navigation example">
-                                        <ul class="pagination ">
-                                            <li class="page-item"><a class="page-link text-secondary"
-                                                    href="#">Previous</a></li>
-                                            <li class="page-item"><a class="page-link text-secondary" href="#">1</a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link text-secondary" href="#">2</a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link text-secondary" href="#">3</a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link text-secondary" href="#">Next</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </th>
-                                <th class="text-right">
-                                    <a class="btn btn-secondary " href="#" role="button">新增</a>
-                                </th>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>

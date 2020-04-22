@@ -15,11 +15,20 @@ public interface BlogMapper {
     @Select("select * from blog left join blogCategory on blog.categoryID = blogCategory.id order by blog.id")
     List<Blog> findBlogByList();
 
+    @Select("select * from blog where categoryID=#{categoryID} and if_publish=1")
+    List<Blog> findBlogByCategory(Integer categoryID);
+
     @Select("select count(*) from blog")
     Integer getTotalCounts();
 
+    @Select("select count(*) from blog where categoryID=#{categoryID}")
+    Integer getCategoryCounts(Integer categoryID);
+
     @Select("select * from blog left join blogCategory on blog.categoryID = blogCategory.id order by blog.createTime desc limit #{start},#{pageSize}")
     List<Blog> findBlogByPages(Integer start, Integer pageSize);
+
+    @Select("select * from blog left join blogCategory on blog.categoryID = blogCategory.id where blog.if_publish=1 order by blog.createTime desc limit #{start},#{pageSize}")
+    List<Blog> findPublishedBlogByPages(Integer start, Integer pageSize);
 
     @Insert("insert into blog (title,text,if_publish,createTime,updateTime,categoryID) values (#{title},#{text},#{if_publish},#{createTime},#{updateTime},#{categoryID})")
     void saveBlog(Blog blog);

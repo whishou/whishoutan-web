@@ -25,13 +25,28 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public List<Blog> getBlogByCategory(Integer categoryID) {
+        return blogMapper.findBlogByCategory(categoryID);
+    }
+
+    @Override
     public Integer getTotalCounts() {
         return blogMapper.getTotalCounts();
     }
 
     @Override
+    public Integer getCategoryCounts(Integer categoryID) {
+        return blogMapper.getCategoryCounts(categoryID);
+    }
+
+    @Override
     public List<Blog> getBlogListByPages(Integer start, Integer pageSize) {
         return blogMapper.findBlogByPages(start, pageSize);
+    }
+
+    @Override
+    public List<Blog> getPublishedBlogListByPage(Integer start, Integer pageSize) {
+        return blogMapper.findPublishedBlogByPages(start, pageSize);
     }
 
 

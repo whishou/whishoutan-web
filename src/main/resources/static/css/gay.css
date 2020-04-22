@@ -28,4 +28,12 @@ body{
     }
 }
 
+/* 调整文章样式 */
+
+#myText p , center {
+    font-size: 1.5rem;
+    /*margin: 3rem!important;*/
+    font-weight: 300!important;
+}
+
 

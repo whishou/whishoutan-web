@@ -8,4 +8,8 @@ public interface BlogCategoryService {
     BlogCategory getBlogCategory(Integer id);
 
     List<BlogCategory> getAllCategory();
+
+    void newCategory(String string);
+
+    void deleteCategory(Integer id);
 }

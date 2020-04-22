@@ -23,4 +23,14 @@ public class BlogCategoryServiceImpl implements BlogCategoryService {
     public List<BlogCategory> getAllCategory() {
         return blogCategoryMapper.allCategory();
     }
+
+    @Override
+    public void newCategory(String string) {
+        blogCategoryMapper.newCategory(string);
+    }
+
+    @Override
+    public void deleteCategory(Integer id) {
+        blogCategoryMapper.deleteCategory(id);
+    }
 }

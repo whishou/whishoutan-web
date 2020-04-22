@@ -13,7 +13,7 @@
 <body>
 
     <!-- 导航 -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" th:replace="_fragments::nav">
         <a class="navbar-brand">
             <h2>名字不代表我是兽の小屋</h2>
         </a>
@@ -48,6 +48,7 @@
                             Whishou Tan
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#" th:href="@{/loginIndex/myblogPages?page=1}">管理</a>
                             <a class="dropdown-item" href="#" th:href="@{/loginIndex/logout}">注销</a>
                         </div>
                     </div>
@@ -76,134 +77,13 @@
             </div>
             <!-- 正文 -->
             <div class="row">
-                <div class="col border shadow bg-light rounded">
-                    <p class="h4 font-weight-light m-5" th:text="${myBlog.text}">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eos
+                <div id="myText" class="col border shadow bg-light rounded p-5" th:utext="${text}">
+                    <p class="h4 font-weight-light m-5" >Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eos
                         exercitationem optio modi minima
                         similique in sed adipisci. Sapiente qui numquam iste deserunt fuga! Saepe quibusdam minima
                         consequatur quod deserunt. Doloribus nisi repudiandae itaque enim odit ad eaque consequuntur
                         ducimus, assumenda explicabo ex eveniet voluptates facilis eos fugit provident pariatur,
                         voluptatem
-                        mollitia dolor maiores sapiente vitae. Quasi, asperiores! Dolorem, ad. Corrupti voluptatem,
-                        earum
-                        eum autem esse iste praesentium sapiente et iusto, necessitatibus inventore voluptatibus
-                        aspernatur
-                        voluptas non alias, natus sunt ab! Quaerat magni rerum repellat, nam assumenda deserunt fugit
-                        vero
-                        enim quae non corrupti ea consectetur ad, repudiandae consequuntur voluptatibus dicta neque
-                        repellendus labore veritatis nobis modi necessitatibus! Architecto exercitationem laudantium at
-                        possimus corrupti quia alias aperiam eaque fugit optio fuga itaque odio, nulla voluptatum sunt
-                        minus
-                        minima? Nihil consectetur laborum mollitia eligendi repellendus magnam numquam asperiores ab?
-                        Tempora blanditiis culpa, inventore aliquid suscipit dolor excepturi libero quibusdam
-                        necessitatibus
-                        ut pariatur neque dolorem sint. Error repellendus libero, distinctio qui aspernatur ratione nisi
-                        enim voluptatum, tenetur dolore, dolorem architecto cumque deleniti accusantium. Quisquam
-                        reiciendis
-                        aperiam deserunt architecto vero facere illum voluptate molestiae nisi id odio consequatur ex
-                        deleniti, numquam suscipit? Ab debitis repudiandae eos et blanditiis ipsa? Assumenda, molestias
-                        tempore omnis at fugit officia tempora illum ratione expedita iste quod architecto quasi,
-                        delectus
-                        consequuntur modi. Voluptatem officia magni minus veniam consequatur cum rem? Doloremque
-                        consectetur
-                        dolore tempora sint neque! Sequi odio ea tempora sit reprehenderit totam perspiciatis, inventore
-                        eveniet, excepturi laborum consequatur iure! Dolorum suscipit quod explicabo veritatis rem
-                        officia
-                        beatae, dolore aliquid dignissimos atque unde modi, perferendis vitae ipsa blanditiis? Iure
-                        expedita
-                        consequatur reprehenderit! Quo optio nostrum magni expedita sequi quas eum dolorum suscipit eos
-                        hic,
-                        aliquid alias provident sed eveniet illo? Perferendis vitae doloribus voluptatum. Iusto optio
-                        magnam
-                        inventore facilis nihil? Asperiores sunt nobis totam suscipit modi, consequatur iste eum officia
-                        qui
-                        blanditiis nostrum? Nostrum architecto vel vitae nisi ut optio repellat eius aperiam pariatur
-                        eveniet, praesentium enim reiciendis totam aliquid nemo dignissimos similique porro quas rerum
-                        assumenda eligendi asperiores quibusdam eos? Qui, vitae aperiam, pariatur earum iste veritatis
-                        nihil
-                        officiis, cum facilis possimus quisquam quasi sunt. Ratione animi a nesciunt officia aliquid
-                        deleniti. Molestias totam fuga doloribus labore illum, libero magnam ullam voluptas! Distinctio
-                        minima aperiam quod amet tenetur modi nemo pariatur nesciunt facere laborum dolorum quam ipsum
-                        non
-                        error aliquid, voluptates rem est reiciendis. Voluptatum ducimus nihil commodi, pariatur illo
-                        impedit velit voluptates, ipsam exercitationem soluta et rem non possimus architecto, omnis
-                        unde?
-                        Recusandae sunt alias impedit, vel assumenda hic, veniam laborum odio quasi quos corporis ipsum,
-                        id
-                        natus perspiciatis animi nemo ullam quia incidunt maiores at asperiores commodi quam.
-                        Necessitatibus
-                        cumque aliquid nemo inventore et cupiditate iusto aut pariatur delectus optio excepturi ullam
-                        ratione vitae similique harum consequatur, libero ea repudiandae culpa eaque, quae perspiciatis,
-                        assumenda vero? Aliquid quidem ullam ipsam dicta error consectetur asperiores quasi culpa vel
-                        doloremque, eos maxime omnis expedita distinctio animi eum labore odit sit alias voluptas
-                        aspernatur
-                        eaque. Aperiam omnis illo veniam. Debitis minima expedita repellat odit, quia sunt molestiae
-                        harum
-                        modi fugit consequuntur voluptatum sit ex eum blanditiis numquam voluptate saepe tenetur enim
-                        eligendi aut nihil aspernatur. Magnam magni temporibus dolorem modi explicabo veritatis
-                        quibusdam
-                        delectus ad rerum inventore libero deleniti, asperiores ea facilis quidem minima, molestiae
-                        sequi
-                        dolores. Cum sapiente aspernatur, obcaecati aut omnis tempore quas fuga suscipit ipsam provident
-                        facilis et maxime odit? Velit a laudantium expedita at? Eveniet deleniti, possimus odit illo
-                        eaque
-                        recusandae sunt fugit debitis quaerat veniam sint, alias facilis sed similique cupiditate
-                        reprehenderit totam quasi! Minus qui fuga ipsum iusto rerum, dicta, est rem, quos temporibus
-                        atque
-                        expedita suscipit possimus. Harum fugit, voluptatem aliquam obcaecati, aut facilis, ullam
-                        nesciunt
-                        quia numquam recusandae necessitatibus quos iure? Ad ducimus fugit, aut similique recusandae
-                        repellat? Nesciunt incidunt similique eveniet nam ab quaerat vitae repellendus culpa eligendi
-                        vero.
-                        Quaerat alias dicta quae quo distinctio omnis reiciendis quas rem voluptatem eveniet, doloribus
-                        praesentium officiis at, porro explicabo sed quibusdam cupiditate numquam temporibus provident
-                        magni
-                        deleniti beatae ea. Ut iste sint dolorum? Dolorum, hic aliquid! Delectus, cupiditate saepe dolor
-                        accusantium illo, sapiente tempora at reprehenderit voluptatum accusamus autem? Mollitia, cum
-                        optio
-                        perferendis vitae suscipit, minima dolorem saepe quis, officia sunt magnam. Non delectus quis
-                        error.
-                        A, blanditiis ad nulla, ab quia ducimus soluta ex hic ipsa impedit distinctio omnis tempora
-                        vitae
-                        recusandae rem vel quisquam corrupti eum repudiandae qui voluptas tenetur perspiciatis ipsam
-                        facere?
-                        Natus esse quae veniam consectetur totam provident error architecto quo soluta suscipit dolorum
-                        pariatur quisquam, inventore, aliquam facilis doloribus obcaecati voluptate maxime vero dolor
-                        labore
-                        debitis? Corporis eum ab eius aut suscipit nesciunt consectetur delectus! Amet ad ut omnis
-                        distinctio quia recusandae quasi magni quibusdam, culpa, mollitia maxime iste aliquam
-                        consequatur.
-                        Nesciunt qui rem quibusdam blanditiis unde saepe, omnis quia, tempora rerum doloribus quo
-                        corporis
-                        officiis possimus earum ipsa ex ut quae deserunt nihil! Doloremque aut tempora quo sapiente
-                        quis,
-                        rem, ea dolore, asperiores officiis dicta placeat at enim autem rerum magnam minima beatae
-                        tenetur
-                        accusamus! Nesciunt quos facilis atque tenetur repellat? Non quasi, quibusdam deleniti
-                        voluptatum ea
-                        error nisi, ipsam consequuntur maiores quisquam maxime, minima similique est fugit beatae
-                        corrupti
-                        consequatur modi sed nemo nihil. Error atque cum suscipit? Mollitia reprehenderit atque nihil
-                        nam.
-                        Molestiae libero commodi inventore, recusandae repudiandae ducimus exercitationem, natus sit
-                        fugiat
-                        nulla cum mollitia ullam incidunt suscipit ratione voluptatem consectetur impedit quia fugit
-                        blanditiis dolorum? Blanditiis eligendi sint illum harum maxime laborum! Nemo voluptatum
-                        architecto
-                        odio modi placeat tempore vitae maxime, eos soluta rerum accusamus vero voluptatibus nam minima!
-                        At
-                        eaque ipsam nesciunt maiores voluptatem illum. Optio magni dolor vero, fugit alias placeat
-                        dolore
-                        ducimus culpa quibusdam aliquid quo quaerat consequuntur eum perspiciatis velit sed asperiores
-                        porro
-                        earum! Fugit maiores praesentium odit impedit rem atque officiis tempora obcaecati! Impedit
-                        earum
-                        illo aliquid. Modi hic omnis dolorum repudiandae sapiente architecto maxime debitis maiores
-                        quasi?
-                        Ratione quidem voluptates obcaecati! Laborum quibusdam facilis veritatis quis optio autem
-                        voluptatem
-                        eius, itaque vero atque numquam eos consequuntur ad distinctio possimus, totam eligendi sint
-                        quos
-                        commodi dolores. Autem, quas quidem! Nostrum odit porro dolorum quas iusto perspiciatis eius.
                     </p>
                 </div>
 
@@ -215,14 +95,14 @@
                         <p class="h5 pb-4">留言板</p>
 
                         <div class="media ">
-                            <img style="width: 64px;height: 64px;" src="../static/images/me.jpg" class="mr-3">
+                            <img style="width: 64px;height: 64px;" src="../static/images/me.jpg" class="mr-3" th:src="@{/images/me.jpg}">
                             <div class="media-body">
                                 <h5 class="mt-0">Whishou Tan</h5>
                                 hello!
 
                                 <div class="media mt-3">
                                     <a class="mr-3" href="#">
-                                        <img style="width: 64px;height: 64px;" src="../static/images/me.jpg" class="mr-3">
+                                        <img style="width: 64px;height: 64px;" src="../static/images/me.jpg" class="mr-3" th:src="@{/images/me.jpg}">
                                     </a>
                                     <div class="media-body">
                                         <h5 class="mt-0">Whishou Tan</h5>
@@ -233,7 +113,7 @@
                         </div>
 
                         <div class="media mt-3">
-                            <img style="width: 64px;height: 64px;" src="../static/images/me.jpg" class="mr-3" alt="...">
+                            <img style="width: 64px;height: 64px;" src="../static/images/me.jpg" class="mr-3" alt="..." th:src="@{/images/me.jpg}">
                             <div class="media-body">
                                 <h5 class="mt-0">Whishou Tan</h5>
                                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, sapiente modi
