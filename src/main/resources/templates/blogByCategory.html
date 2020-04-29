@@ -82,9 +82,20 @@
 <!--                                <h4 class="p-4" th:text="${list.title}"><a href="" th:text="${list.title}">请君听</a></h4>-->
                                 <a href="#" class="p-4 h4 d-block text-decoration-none text-dark"
                                    th:text="${list.title}" th:href="@{'/article?id='+${list.id}}">请君听</a>
-                                <div class="px-4 font-weight-light" th:utext="${#strings.abbreviate(list.text,100)}">
+<!--                                <div class="px-4 font-weight-light" th:utext="${#strings.abbreviate(list.text,100)}">-->
+<!--                                    <p class="px-4 font-weight-light"-->
+<!--                                       style="display: -webkit-box;overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp:5;-webkit-box-orient: vertical">-->
+<!--                                        Lorem ipsum dolor sit amet consectetur adipisicing elit.-->
+<!--                                        Id unde ipsa excepturi quos dolorem tempora sapiente cumque earum soluta nihil optio-->
+<!--                                        aliquam distinctio reprehenderit ipsum accusantium, eligendi possimus architecto rerum?-->
+<!--                                        Officiis, mollitia optio? Delectus cumque, aut enim debitis facilis voluptatum,-->
+<!--                                        architecto corrupti deserunt quis nemo suscipit. Saepe hic debitis mollitia.-->
+<!--                                    </p>-->
+<!--                                </div>-->
+                                <div class="px-4 font-weight-light">
                                     <p class="px-4 font-weight-light"
-                                       style="display: -webkit-box;overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp:5;-webkit-box-orient: vertical">
+                                       style="display: -webkit-box;overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp:5;-webkit-box-orient: vertical"
+                                       th:text="${list.brief}">
                                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                         Id unde ipsa excepturi quos dolorem tempora sapiente cumque earum soluta nihil optio
                                         aliquam distinctio reprehenderit ipsum accusantium, eligendi possimus architecto rerum?
