@@ -101,6 +101,7 @@ public class BlogController {
             model.addAttribute("title",queryBlog.getTitle());
             model.addAttribute("categoryID",queryBlog.getCategoryID());
             model.addAttribute("text",queryBlog.getText());
+            model.addAttribute("brief",queryBlog.getBrief());
         }
         return "admin/newblogs";
     }

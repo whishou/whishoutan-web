@@ -3,19 +3,20 @@ package com.whishoutan.main.controller;
 
 import com.whishoutan.main.entity.Blog;
 import com.whishoutan.main.entity.BlogCategory;
+import com.whishoutan.main.entity.Comment;
 import com.whishoutan.main.entity.Page;
 import com.whishoutan.main.service.BlogCategoryService;
 import com.whishoutan.main.service.BlogService;
+import com.whishoutan.main.service.CommentService;
 import com.whishoutan.main.util.MarkdownToHTML;
 import com.whishoutan.main.util.TimeConvert;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 @Controller
 public class IndexController {
@@ -24,10 +25,13 @@ public class IndexController {
 
     private final BlogCategoryService blogCategoryService;
 
-    public IndexController(BlogService blogService, BlogCategoryService blogCategoryService)
+    private final CommentService commentService;
+
+    public IndexController(BlogService blogService, BlogCategoryService blogCategoryService, CommentService commentService)
     {
         this.blogService = blogService;
         this.blogCategoryService = blogCategoryService;
+        this.commentService = commentService;
     }
 
     @RequestMapping("/")
@@ -93,9 +97,9 @@ public class IndexController {
     }
 
     @RequestMapping("/article")
-    public String article(Model model,Blog blog){
+    public String article(Model model,Blog blog)
+    {
         Blog myBlog = blogService.getBlog(blog);
-
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 //        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 //        myBlog.setCrTime(simpleDateFormat.format(myBlog.getCreateTime()));
@@ -106,10 +110,40 @@ public class IndexController {
         String string = MarkdownToHTML.markdownToHTML(myBlog.getText());
         //System.out.println(string);
 
+        List<Comment> commentList = commentService.getCommentByBlogID(blog.getId());
+        TimeConvert.timeConvert(commentList);
+
+        //根据commentID，查询reply列表
+//        for (int i = 0; i < commentList.size(); i++) {
+//            commentList.get(i).setReplyComments(commentService.getReply(blog.getId(),commentList.get(i).getId()));
+//            TimeConvert.timeConvert(commentList.get(i).getReplyComments());
+//        }
+        for (Comment comment : commentList) {
+            comment.setReplyComments(commentService.getReply(blog.getId(), comment.getId()));
+
+            TimeConvert.timeConvert(comment.getReplyComments());
+        }
+
         //System.out.println(myBlog.toString());
+        //System.out.println(commentList.toString());
+
         model.addAttribute("myBlog",myBlog);
         model.addAttribute("text",string);
 
+        model.addAttribute("commentList",commentList);
+
         return "article";
+    }
+
+    @RequestMapping("/comment")
+    public String comments(Comment comment, RedirectAttributes attributes)
+    {
+        Date date = new Date();
+        comment.setCreateTime(date);
+        //System.out.println(comment.toString());
+        commentService.newComment(comment);
+
+        attributes.addAttribute("id",comment.getBlogID());
+        return "redirect:/article";
     }
 }

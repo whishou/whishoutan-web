@@ -93,59 +93,64 @@
                 <div class="col border shadow bg-light rounded">
                     <div class="mx-5 my-3">
                         <p class="h5 pb-4">留言板</p>
+                    </div>
+                    <!-- 留言内容 -->
+                    <div class="border mx-5 my-3 px-3 bg-white" id="comment_container">
+                        <div th:fragment="comment_body">
+                            <div class="media my-3 border-bottom pb-3" th:each="commentList ,stat : ${commentList}">
+                                <img style="width: 64px;height: 64px;" src="../static/images/me.jpg" class="mr-3" th:src="@{/images/avatar_001.svg}">
+                                <div class="media-body">
+                                    <div>
+                                        <h5 class="mt-0 d-inline mr-3" th:text="${commentList.nickName}">Whishou Tan</h5>
+                                        <span class="text-secondary" th:text="${commentList.crTime}">2020-04-22</span>
+                                    </div>
+                                    <span class="d-block" th:text="${commentList.text}">hello!</span>
+                                    <!--设置ID与nickname两个自定义属性，便于查询回复的对象，自定义属性以data-开头-->
+                                    <button type="button" class="btn btn-link p-0 text-info" data-commentID="1" data-commentNickname="Whishou Tan"
+                                            th:attr="data-commentID=${commentList.id},data-commentNickname=${commentList.nickName}" onclick="reply(this)">回复</button>
 
-                        <div class="media ">
-                            <img style="width: 64px;height: 64px;" src="../static/images/me.jpg" class="mr-3" th:src="@{/images/me.jpg}">
-                            <div class="media-body">
-                                <h5 class="mt-0">Whishou Tan</h5>
-                                hello!
-
-                                <div class="media mt-3">
-                                    <a class="mr-3" href="#">
-                                        <img style="width: 64px;height: 64px;" src="../static/images/me.jpg" class="mr-3" th:src="@{/images/me.jpg}">
-                                    </a>
-                                    <div class="media-body">
-                                        <h5 class="mt-0">Whishou Tan</h5>
-                                        Hi!
+                                    <!--如果没有回复则隐藏-->
+                                    <div class="media mt-3" th:if="${#arrays.length(commentList.replyComments)}>0" th:each="replyList, stat:${commentList.replyComments}">
+                                        <img style="width: 64px;height: 64px;" src="../static/images/me.jpg" class="mr-3" th:src="@{/images/avatar_001.svg}">
+                                        <div class="media-body" >
+                                            <div>
+                                                <h5 class="mt-0 d-inline" th:text="${replyList.nickName}">Whishou Tan</h5>
+                                                <span class="mr-3 text-secondary" th:text="|回复 ${replyList.parentNickName}|">@ qaq</span>
+                                                <span class="text-secondary" th:text="${replyList.crTime}">2020-04-22</span>
+                                            </div>
+                                            <span th:text="${replyList.text}">hi!</span>
+                                            <button type="button" class="btn btn-link p-0 text-info" data-commentID="1" data-commentNickname="Whishou Tan"
+                                                    th:attr="data-commentID=${replyList.id},data-commentNickname=${replyList.nickName}" onclick="reply(this)">回复</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="media mt-3">
-                            <img style="width: 64px;height: 64px;" src="../static/images/me.jpg" class="mr-3" alt="..." th:src="@{/images/me.jpg}">
-                            <div class="media-body">
-                                <h5 class="mt-0">Whishou Tan</h5>
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, sapiente modi
-                                recusandae tempore commodi non voluptas! Neque vero magnam quo repellat quibusdam animi
-                                dolorem ex adipisci laborum autem aspernatur, pariatur totam earum asperiores quia est
-                                ipsa? Nihil quaerat, animi illo vitae laborum quibusdam obcaecati quisquam ad odio hic
-                                laudantium ab.
-                            </div>
-                        </div>
                     </div>
                 </div>
-
             </div>
 
             <!-- 留言表单 -->
             <div class="row">
                 <div class="col border shadow bg-light rounded">
-                    <form class="mx-5 my-3">
+                    <form class="mx-5 my-3" method="post" th:action="@{/comment}">
+                        <!--设置两个隐含域，传递blogid与父评论的ID，父评论ID默认为-1，表示默认无父评论-->
+                        <input type="text" name="blogID" th:value="${myBlog.id}" class="d-none">
+                        <input type="text" name="commentID" value="-1" class="d-none">
+
                         <div class="form-group">
-                          <label class="h5 pb-3" for="exampleFormControlTextarea1">我想说点什么</label>
-                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" placeholder="我觉得"></textarea>
+                          <label class="h5 pb-3" for="inputComment">我想说点什么</label>
+                          <textarea class="form-control" id="inputComment" rows="10" name="text" placeholder="我觉得" required></textarea>
                         </div>
-        
                         <div class="form-row">
                             <div class="form-group col-lg-3">
-                                <label class="sr-only" for="inlineFormInputName">你的昵称</label>
-                                <input type="text" class="form-control" id="inlineFormInputName" placeholder="昵称">
+                                <label class="sr-only" for="inputNickname">你的昵称</label>
+                                <input type="text" class="form-control" id="inputNickname" name="nickName" placeholder="昵称" autocomplete="off" required>
                             </div>
         
                             <div class="form-group col-lg-4">
-                                <label class="sr-only" for="exampleFormControlInput1">你的电子邮箱</label>
-                                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email address">
+                                <label class="sr-only" for="inputEmail">你的电子邮箱</label>
+                                <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email address" required>
                               </div>
                               <div class="col-lg-2 text-right">
                                 <button type="submit" class="btn btn-secondary">提交</button>
@@ -176,6 +181,30 @@
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
     <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+    <script>
+        // $('#comment_submit').click(function () {
+        //     $.ajax({
+        //         url:"/article",
+        //         //dataType:"",
+        //         async:true,
+        //         data:{"id":41},
+        //         type:"POST",
+        //         success:function () {
+        //             $("[name='text']").val("");
+        //             $("[name='text']").attr("placeholder", "我觉得").focus();
+        //         }
+        //     })
+        // })
+
+        function reply(object) {
+            let id = $(object).data('commentid');
+            let nickname = $(object).data('commentnickname');
+            $("[name='text']").attr("placeholder", "@ "+nickname).focus();
+            $("[name='commentID']").val(id);
+
+        }
+
+    </script>
 </body>
 
 </html>

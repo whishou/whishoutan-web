@@ -30,10 +30,10 @@ public interface BlogMapper {
     @Select("select * from blog left join blogCategory on blog.categoryID = blogCategory.id where blog.if_publish=1 order by blog.createTime desc limit #{start},#{pageSize}")
     List<Blog> findPublishedBlogByPages(Integer start, Integer pageSize);
 
-    @Insert("insert into blog (title,text,if_publish,createTime,updateTime,categoryID) values (#{title},#{text},#{if_publish},#{createTime},#{updateTime},#{categoryID})")
+    @Insert("insert into blog (title,text,if_publish,createTime,updateTime,categoryID,brief) values (#{title},#{text},#{if_publish},#{createTime},#{updateTime},#{categoryID},#{brief})")
     void saveBlog(Blog blog);
 
-    @Update("update blog set title =#{title} ,text = #{text}, if_publish = #{if_publish},updateTime =#{updateTime}, categoryID= #{categoryID} where id = #{id}")
+    @Update("update blog set title =#{title} ,text = #{text}, if_publish = #{if_publish},updateTime =#{updateTime}, categoryID= #{categoryID}, brief= #{brief} where id = #{id}")
     void updateBlog(Blog blog);
 
     @Delete("delete from blog where id = #{id}")

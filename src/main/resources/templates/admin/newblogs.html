@@ -94,9 +94,14 @@
                             <!-- markdown编辑器 -->
                             <div id="editormd" style="z-index: 1 !important;">
                                 <textarea th:text="${text}" id="inputText" name="text" style="display: none;" required></textarea>
-
                             </div>
 
+                        </div>
+
+                        <!--前端显示的简介 -->
+                        <div class="form-group">
+                            <label for="inputBrief">简介</label>
+                            <textarea th:text="${brief}" class="form-control" id="inputBrief" name="brief" rows="3"></textarea>
                         </div>
 
                         <!-- 提交 -->

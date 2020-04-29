@@ -12,6 +12,7 @@ public class Blog {
     private Date createTime;
     private Date updateTime;
     private Integer categoryID;
+    private String brief;
 
     private String category;
     private String crTime;
@@ -81,6 +82,14 @@ public class Blog {
         this.categoryID = categoryID;
     }
 
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
+    }
+
     public String getCategory() {
         return category;
     }
@@ -132,6 +141,7 @@ public class Blog {
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", categoryID=" + categoryID +
+                ", brief='" + brief + '\'' +
                 ", category='" + category + '\'' +
                 ", crTime='" + crTime + '\'' +
                 ", upTime='" + upTime + '\'' +

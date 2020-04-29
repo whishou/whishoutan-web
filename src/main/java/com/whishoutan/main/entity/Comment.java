@@ -10,6 +10,12 @@ public class Comment {
     private String text;
     private String avatar;
     private Date createTime;
+    private Integer blogID;
+    private Integer commentID;
+
+    private String crTime;
+    private Integer parentID;   //其实parentID与commentID是一样的
+    private String parentNickName;
 
     private Blog blog;
 
@@ -67,6 +73,46 @@ public class Comment {
         this.createTime = createTime;
     }
 
+    public Integer getBlogID() {
+        return blogID;
+    }
+
+    public void setBlogID(Integer blogID) {
+        this.blogID = blogID;
+    }
+
+    public Integer getCommentID() {
+        return commentID;
+    }
+
+    public void setCommentID(Integer commentID) {
+        this.commentID = commentID;
+    }
+
+    public String getCrTime() {
+        return crTime;
+    }
+
+    public void setCrTime(String crTime) {
+        this.crTime = crTime;
+    }
+
+    public Integer getParentID() {
+        return parentID;
+    }
+
+    public void setParentID(Integer parentID) {
+        this.parentID = parentID;
+    }
+
+    public String getParentNickName() {
+        return parentNickName;
+    }
+
+    public void setParentNickName(String parentNickName) {
+        this.parentNickName = parentNickName;
+    }
+
     public Blog getBlog() {
         return blog;
     }
@@ -100,6 +146,12 @@ public class Comment {
                 ", text='" + text + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", createTime=" + createTime +
+                ", blogID=" + blogID +
+                ", commentID=" + commentID +
+                ", crTime='" + crTime + '\'' +
+                ", parentID='" + parentID + '\'' +
+                ", parentNickName='" + parentNickName + '\'' +
+                ", replyComments=" + replyComments +
                 '}';
     }
 }
