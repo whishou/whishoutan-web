@@ -36,4 +36,32 @@ body{
     font-weight: 300!important;
 }
 
+/* logo */
+#logo {
+    background-image: linear-gradient(
+            to right,
+            orangered,
+            orange,
+            gold,
+            lightgreen,
+            dodgerblue,
+            mediumpurple,
+            orangered);
+    background-size: 100%;
+}
+#logo {
+    animation: sliding 500s linear infinite;
+}
+/* 动画 */
+@keyframes sliding {
+    to {
+        background-position: 2000vw;
+    }
+}
+#logo {
+    /*绘制文字*/
+    -webkit-background-clip: text;
+    /*将文字设置透明*/
+    -webkit-text-fill-color: transparent;
+}
 
